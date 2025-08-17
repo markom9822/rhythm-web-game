@@ -1,3 +1,4 @@
+
 const gameContainer = document.getElementById('laneContainer');
 const scoreDisplay = document.getElementById('score');
 
@@ -11,11 +12,9 @@ let health = 5;
 const healthContainer = document.getElementById('healthContainer');
 healthContainer.innerHTML = ""; 
 
-
 const hitZoneY = 500 - 50; // position of hit zone from top
 let highScore = 0;
 let score = 0;
-const fallingSpeed = 2; // speed of falling bars
 
 let infoTimeoutId = null;
 let gameRunning = false;
@@ -32,8 +31,6 @@ window.addEventListener("DOMContentLoaded", () => {
     const restartButton = document.getElementById("restartButton");
 
     restartButton.addEventListener("click", () => {
-
-        console.log("Trying to restart")
         // Hide menu
         gameOverMenu.style.display = "none";
         handleResetGameState();
@@ -46,6 +43,7 @@ window.addEventListener("DOMContentLoaded", () => {
         startMenu.style.display = "none";
         gameRunning = true;
         gameLoop();
+        scheduleNextNote();
     });
 });
 
@@ -91,7 +89,7 @@ function gameLoop() {
     for (let i = notes.length - 1; i >= 0; i--) {
 
         let note = notes[i];
-        note.y += fallingSpeed; // falling speed
+        note.y += getFallingSpeed(score); // falling speed
         note.element.style.top = note.y + 'px';
 
         if (note.y > 500) {
@@ -144,6 +142,11 @@ function updateHealthVisuals() {
     }
 }
 
+function getFallingSpeed(score) {
+
+    return Math.min(2 + Math.floor(score / 10) * 0.5, 10)
+}
+
 function decreaseHealth() {
 
     if(health > 0)
@@ -174,7 +177,7 @@ function showInfo(text, colour) {
     infoTimeoutId = setTimeout(() => {
         infoText.textContent = "";
         infoTimeoutId = null;
-    }, 1000)
+    }, 500)
 }
 
 function hit(lane) {
@@ -270,21 +273,26 @@ document.addEventListener('keyup', (e) => {
     {
         rightArrowImage.src = "./images/Right_arrow_unpressed.png";
         drummerImage.src = "./images/Japanese_drummer_idle.png";
-    
     }
 
 });
 
-// spawn notes on one lane
+function getSpawnInterval(score) {
 
-setInterval(() => 
-{
+    return Math.max(1000 - Math.floor(score * 10 ) * 0.5, 500)
+}
+
+function scheduleNextNote() {
     if(!gameRunning) return;
 
     const lane = Math.random() < 0.5 ? 'left' : 'right';
     spawnNote(lane);
 
-}, 1000);
+    // Dynamically re-evaluate spawn interval
+    setTimeout(scheduleNextNote, getSpawnInterval(score));
+}
+
+scheduleNextNote();
 
 updateHealthVisuals();
 
