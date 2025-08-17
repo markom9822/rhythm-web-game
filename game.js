@@ -8,6 +8,17 @@ const drummerImage =  document.getElementById("drummer");
 
 const infoText = document.getElementById("infoText");
 
+// audio
+const drumSound = new Audio('./sounds/drum_sound_8bit.wav');
+drumSound.volume = 0.6;
+
+const hurtSound = new Audio('./sounds/man_hurt_8bit.wav');
+hurtSound.volume = 0.8;
+
+const gameOverSound = new Audio('./sounds/kabuki_yoooo_8bit.wav');
+gameOverSound.volume = 0.8;
+
+
 let health = 5;
 const healthContainer = document.getElementById('healthContainer');
 healthContainer.innerHTML = ""; 
@@ -36,6 +47,7 @@ window.addEventListener("DOMContentLoaded", () => {
         handleResetGameState();
         gameRunning = true;
         gameLoop();
+        scheduleNextNote();
     });
 
     startButton.addEventListener("click", () => {
@@ -55,6 +67,9 @@ function handleGameOver() {
    
     highScore = score > highScore ? score : highScore;
     highscoreText.textContent = 'Highscore: ' + highScore;
+
+    gameOverSound.currentTime = 0;
+    gameOverSound.play();
 }
 
 function handleResetGameState() {
@@ -151,6 +166,8 @@ function decreaseHealth() {
 
     if(health > 0)
     {
+        hurtSound.currentTime = 0;
+        hurtSound.play();
         health -= 0.5;
     }
 }
@@ -232,12 +249,16 @@ document.addEventListener('keydown', (e) => {
     {
         leftArrowImage.src = "./images/Left_arrow_pressed.png";
         drummerImage.src = "./images/Japanese_drummer_left_hit.png";
+        drumSound.currentTime = 0;
+        drumSound.play();
     } 
 
     if (e.code === 'ArrowRight')
     {
         rightArrowImage.src = "./images/Right_arrow_pressed.png";
         drummerImage.src = "./images/Japanese_drummer_right_hit.png";
+        drumSound.currentTime = 0;
+        drumSound.play();
     }
 });
 
