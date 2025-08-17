@@ -18,7 +18,57 @@ const fallingSpeed = 2; // speed of falling bars
 
 let infoTimeoutId = null;
 
+let gameRunning = false;
+
 let notes = [];
+
+window.addEventListener("DOMContentLoaded", () => {
+
+    const gameOverMenu = document.getElementById("gameOverMenu");
+    gameOverMenu.style.display = "none";
+
+    const startMenu = document.getElementById("startMenu");
+    const startButton = document.getElementById("startButton");
+
+    const restartButton = document.getElementById("restartButton");
+
+    restartButton.addEventListener("click", () => {
+
+        console.log("Trying to restart")
+        // Hide menu
+        gameOverMenu.style.display = "none";
+        handleResetGameState();
+        gameRunning = true;
+        gameLoop();
+    });
+
+    startButton.addEventListener("click", () => {
+        // Hide menu
+        startMenu.style.display = "none";
+        gameRunning = true;
+        gameLoop();
+    });
+});
+
+
+function handleGameOver() {
+
+    gameOverMenu.style.display = "flex";
+}
+
+function handleResetGameState() {
+    health = 5;
+    score = 0;
+    notes.forEach(note => note.element.remove()); // clean up
+    notes = [];
+    updateHealthVisuals();
+    scoreDisplay.textContent = 'Score: ' + score;
+    infoText.textContent = "";
+
+    leftArrowImage.src = "./images/Left_arrow_unpressed.png"; 
+    rightArrowImage.src = "./images/Right_arrow_unpressed.png";
+    drummerImage.src = "./images/Japanese_drummer_idle.png";
+}
 
 function spawnNote(lane) {
 
@@ -33,6 +83,8 @@ function spawnNote(lane) {
 
 function gameLoop() {
 
+    if(!gameRunning) return;
+
     for (let i = notes.length - 1; i >= 0; i--) {
 
         let note = notes[i];
@@ -41,39 +93,44 @@ function gameLoop() {
 
         if (note.y > 500) {
             // missed completely
-            score--;
-
             showInfo("MISS", "red");
 
             updateScore();
+            decreaseHealth();
+            updateHealthVisuals();
+            
             note.element.remove();
             notes.splice(i, 1);
         }
     }
 
+    // need to check for game over
+    if(health == 0)
+    {
+        // game over
+        gameRunning = false;
+        notes.forEach((note) => {note.element.remove()})
+        handleGameOver();
+    }
+
     requestAnimationFrame(gameLoop);
 }
 
-function updateHealth() {
-
-    console.log(health)
+function updateHealthVisuals() {
 
     healthContainer.innerHTML = '';
 
     for (let i = 0; i < 5; i++)
     {
-
-        console.log(i)
-
         const heartImg = document.createElement('img');
         heartImg.width = 50;
         heartImg.height = 50;
         heartImg.className = 'heart';
 
-        if (i < health) {
+        if (health - i > 0.5) {
             heartImg.src = './images/Full_heart.png';
         }
-        else if (i < health - 1){
+        else if (health - i == 0.5){
             heartImg.src = './images/Half_heart.png';
         }
          else {
@@ -84,12 +141,24 @@ function updateHealth() {
     }
 }
 
+function decreaseHealth() {
+
+    if(health > 0)
+    {
+        health -= 0.5;
+    }
+}
+
 function updateScore() {
+
+    if(!gameRunning) return;
 
     scoreDisplay.textContent = 'Score: ' + score;
 }
 
 function showInfo(text, colour) {
+
+    if(!gameRunning) return;
 
     if(infoTimeoutId)
     {
@@ -106,6 +175,8 @@ function showInfo(text, colour) {
 }
 
 function hit(lane) {
+
+    if(!gameRunning) return;
 
     for (let i = 0; i < notes.length; i++) {
 
@@ -125,12 +196,10 @@ function hit(lane) {
             } else {
 
                 // missed hit
-                score--;
-
                 showInfo("MISS", "red");
 
-                health -= 0.5;
-                updateHealth();
+                decreaseHealth();
+                updateHealthVisuals();
             }
 
             updateScore();
@@ -141,15 +210,17 @@ function hit(lane) {
     }
 
     // No note in lane to hit
-    score--;
     showInfo("MISS", "red");
-    health -= 0.5;
-    updateHealth();
+
+    decreaseHealth();
+    updateHealthVisuals();
 
     updateScore();
 }
 
 document.addEventListener('keydown', (e) => {
+
+    if(!gameRunning) return;
 
     if (e.code === 'ArrowLeft')
     {
@@ -166,6 +237,8 @@ document.addEventListener('keydown', (e) => {
 
 document.addEventListener('keydown', (e) => {
 
+    if(!gameRunning) return;
+
     if(!e.repeat)
     {
         if (e.code === 'ArrowLeft')
@@ -181,6 +254,8 @@ document.addEventListener('keydown', (e) => {
 });
 
 document.addEventListener('keyup', (e) => {
+
+    if(!gameRunning) return;
 
     if (e.code === 'ArrowLeft')
     {
@@ -201,11 +276,13 @@ document.addEventListener('keyup', (e) => {
 
 setInterval(() => 
 {
-    //const lane = Math.random() < 0.5 ? 'left' : 'right';
-    //spawnNote(lane);
+    if(!gameRunning) return;
+
+    const lane = Math.random() < 0.5 ? 'left' : 'right';
+    spawnNote(lane);
 
 }, 1000);
 
-updateHealth();
+updateHealthVisuals();
 
 gameLoop();

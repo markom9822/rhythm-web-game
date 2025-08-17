@@ -11,6 +11,76 @@ body {
     flex-direction: column;
 }
 
+#startMenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+    color: white;
+    text-align: center;
+}
+
+#startMenu h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+#startButton {
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    background: #ff4747;
+    border: none;
+    border-radius: 8px;
+    color: white;
+}
+
+#startButton:hover {
+    background: #ff6b6b;
+}
+
+#gameOverMenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+    color: white;
+    text-align: center;
+}
+
+#gameOverMenu h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+#restartButton {
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    background: #ff4747;
+    border: none;
+    border-radius: 8px;
+    color: white;
+}
+
+#restartButton:hover {
+    background: #ff6b6b;
+}
+
 #gameContainer {
     display: flex;
     flex-direction: row;
