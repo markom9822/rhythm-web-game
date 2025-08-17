@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Drum Rhythm Game</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
     <div id="startMenu">
@@ -17,7 +19,7 @@
     <div id="gameOverMenu">
         <h1>Game Over</h1>
         <p>You ran out of health!</p>
-        <p>Highscore: </p>
+        <p id="highscore">Highscore: </p>
         <button id="restartButton">Press to Restart</button>
     </div>
 
@@ -26,7 +28,7 @@
         <div id="infoContainer">
             <h2 id="infoText" class="info"></h2>
         </div>
-        
+
         <div id="laneContainer">
             <div id="leftLane" class="lane"></div>
             <div id="rightLane" class="lane"></div>
@@ -37,26 +39,25 @@
         <div id="playerContainer">
 
             <div id="healthContainer">
-
-
             </div>
 
             <div id="player">
-                <img id="drummer" src="./images/Japanese_drummer_idle.png" width="300" height="300"/>
+                <img id="drummer" src="./images/Japanese_drummer_idle.png" width="300" height="300" />
             </div>
 
             <div id="keysContainer">
 
-                <img id="leftArrow" src="./images/Left_arrow_unpressed.png" width="80" height="80"/>
-                <img id="rightArrow" src="./images/Right_arrow_unpressed.png" width="80" height="80"/>
-            
+                <img id="leftArrow" src="./images/Left_arrow_unpressed.png" width="80" height="80" />
+                <img id="rightArrow" src="./images/Right_arrow_unpressed.png" width="80" height="80" />
+
             </div>
         </div>
 
     </div>
 
-<div id="score">Score: 0</div>
+    <div id="score">Score: 0</div>
 
-<script src="game.js"></script>
+    <script src="game.js"></script>
 </body>
+
 </html>

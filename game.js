@@ -13,13 +13,12 @@ healthContainer.innerHTML = "";
 
 
 const hitZoneY = 500 - 50; // position of hit zone from top
+let highScore = 0;
 let score = 0;
 const fallingSpeed = 2; // speed of falling bars
 
 let infoTimeoutId = null;
-
 let gameRunning = false;
-
 let notes = [];
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -54,12 +53,16 @@ window.addEventListener("DOMContentLoaded", () => {
 function handleGameOver() {
 
     gameOverMenu.style.display = "flex";
+    const highscoreText = document.getElementById("highscore");
+   
+    highScore = score > highScore ? score : highScore;
+    highscoreText.textContent = 'Highscore: ' + highScore;
 }
 
 function handleResetGameState() {
     health = 5;
     score = 0;
-    notes.forEach(note => note.element.remove()); // clean up
+    notes.forEach(note => note.element.remove());
     notes = [];
     updateHealthVisuals();
     scoreDisplay.textContent = 'Score: ' + score;
