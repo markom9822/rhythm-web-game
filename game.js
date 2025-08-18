@@ -220,6 +220,11 @@ function hit(lane) {
 
     if(!gameRunning) return;
 
+    drumSound.currentTime = 0;
+    drumSound.play();
+
+    triggerDrumShake(drummerImage);
+
     for (let i = 0; i < notes.length; i++) {
 
         let note = notes[i];
@@ -260,38 +265,28 @@ document.addEventListener('keydown', (e) => {
 
     if(!gameRunning) return;
 
-    triggerDrumShake(drummerImage);
-
     if (e.code === 'ArrowLeft')
     {
         leftArrowImage.src = "./images/Left_arrow_pressed.png";
         drummerImage.src = "./images/Japanese_drummer_left_hit.png";
-        drumSound.currentTime = 0;
-        drumSound.play();
     } 
 
     if (e.code === 'ArrowRight')
     {
         rightArrowImage.src = "./images/Right_arrow_pressed.png";
         drummerImage.src = "./images/Japanese_drummer_right_hit.png";
-        drumSound.currentTime = 0;
-        drumSound.play();
     }
 
     if (e.code === 'KeyA')
     {
         leftArrowImage.src = "./images/A_key_pressed.png";
         drummerImage.src = "./images/Japanese_drummer_left_hit.png";
-        drumSound.currentTime = 0;
-        drumSound.play();
     } 
 
     if (e.code === 'KeyD')
     {
         rightArrowImage.src = "./images/D_key_pressed.png";
         drummerImage.src = "./images/Japanese_drummer_right_hit.png";
-        drumSound.currentTime = 0;
-        drumSound.play();
     }
 });
 
