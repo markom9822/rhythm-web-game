@@ -159,8 +159,6 @@ function updateHealthVisuals() {
     for (let i = 0; i < MAX_HEALTH; i++)
     {
         const heartImg = document.createElement('img');
-        heartImg.width = 50;
-        heartImg.height = 50;
         heartImg.className = 'heart';
 
         if (health - i > HEALTH_DECREMENT) {
@@ -352,10 +350,10 @@ function getSpawnInterval(score) {
 function scheduleNextNote() {
     if(!gameRunning) return;
 
-    const lane = Math.random() < 0.5 ? 'left' : 'right';
-    spawnNote(lane);
+    //const lane = Math.random() < 0.5 ? 'left' : 'right';
+    //spawnNote(lane);
 
-    setTimeout(scheduleNextNote, getSpawnInterval(score));
+    //setTimeout(scheduleNextNote, getSpawnInterval(score));
 }
 
 function triggerShake(container) {

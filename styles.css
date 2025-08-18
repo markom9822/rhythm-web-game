@@ -42,34 +42,35 @@ body {
     padding-right: 20px;
     border-radius: 5px;
     border: 4px solid rgb(199, 73, 73);
-
 }
 
 #startMenuPanel h1 {
-    font-size: 3rem;
-    margin-bottom: 30px;
+    font-size: 3vw;
+    margin-bottom: 1vh;
     font-family: "PressStart-Regular", "Arial" ;
+    width: 100%;
 }
 
 #startMenuPanel h3 {
-    font-size: 1rem;
-    margin-bottom: 20px;
+    font-size: 1.5vw;
+    margin-bottom: 1vh;
     color: #ff4747;
     font-family: "PressStart-Regular", "Arial" ;
+    width: 100%;
 }
 
 #startMenuPanel p {
-    font-size: 0.8rem;
-    margin-bottom: 10px;
-    line-height: 16px;
+    font-size: 1.2vw;
+    margin-bottom: 0.5vh;
+    line-height: 3vh;
     font-family: "PressStart-Regular", "Arial" ;
 }
 
 #startButton {
     padding: 15px 30px;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    font-size: 1.2rem;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    font-size: 1.2vw;
     cursor: pointer;
     background: #ff4747;
     border: none;
@@ -83,11 +84,18 @@ body {
 }
 
 #keysDisplay {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    gap: 8px;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  gap: 10px;
+  width: 100%;                   
+}
+
+#keysDisplay img {
+  flex: 1 1 auto;  
+  max-width: 50px;
+  height: auto; 
+  width: 20%;
 }
 
 #gameOverMenuBackground {
@@ -108,14 +116,12 @@ body {
 
 #gameOverMenuPanel {
     width: 40%;
-    height: 60%;
     background: rgb(49, 49, 49);
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     z-index: 9999;
-    color: white;
     text-align: center;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -126,28 +132,32 @@ body {
 }
 
 #gameOverMenuPanel h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
+    font-size: 3vw;
+    margin-bottom: 1vh;
     font-family: "PressStart-Regular", "Arial" ;
+    width: 100%;
 }
 
 #gameOverMenuPanel h3 {
-    font-size: 1.3rem;
-    margin-bottom: 20px;
+    font-size: 1.5vw;
+    margin-bottom: 1vh;
+    color: #ff4747;
     font-family: "PressStart-Regular", "Arial" ;
+    width: 100%;
 }
 
 #gameOverMenuPanel p {
-    font-size: 0.8rem;
-    margin-bottom: 10px;
+    font-size: 1.2vw;
+    margin-bottom: 0.5vh;
+    line-height: 3vh;
     font-family: "PressStart-Regular", "Arial" ;
 }
 
 #restartButton {
     padding: 15px 30px;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    font-size: 1.2rem;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    font-size: 1.2vw;
     cursor: pointer;
     background: #ff4747;
     border: none;
@@ -166,26 +176,21 @@ body {
     overflow: hidden;
     align-items: center;
     gap: 10px;
+    width: 70%;
 }
 
 #laneContainer {
     position: relative;
-    width: 300px;
+    width: 30%;
     height: 500px;
     border: 4px solid rgb(104, 21, 21);
     background: #222;
     overflow: hidden;
 }
 
-#infoContainer {
-    position: relative;
-    width: 100px;
-    height: 500px;
-}
-
 #playerContainer {
     position: relative;
-    width: 500px;
+    width: 70%;
     height: 500px;
     border: 4px solid rgb(104, 21, 21);
     background: #222;
@@ -193,6 +198,84 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+#player {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  gap: 10px;
+  width: 100%;  
+}
+
+#player img {
+  flex: 1 1 auto;  
+  max-width: 300px;
+  height: auto; 
+  width: 20%;
+}
+
+#keysContainer {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  gap: 10px;
+  width: 60%;  
+  margin-top: 10px;
+}
+
+#keysContainer img {
+  flex: 1 1 auto;  
+  max-width: 80px;
+  height: auto; 
+  width: 20%;
+}
+
+#healthContainer {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  gap: 10px;
+  width: 70%;  
+  margin-bottom: 20px;
+}
+
+#healthContainer img {
+  flex: 1 1 auto;  
+  max-width: 50px;
+  height: auto; 
+  width: 20%;
+}
+
+#infoContainer {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 70%;
+    height: 10%;
+}
+
+#infoText {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 30%;
+    text-align: center;
+    font-family: "PressStart-Regular", "Arial" ;
+}
+
+#score {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 70%;
+    font-size: 20px;
+    font-family: "PressStart-Regular", "Arial" ;
 }
 
 .lane {
@@ -223,14 +306,6 @@ body {
     height: 15px;
 }
 
-.info {
-    position: absolute;
-    bottom: 25px;
-    width: 100%;
-    text-align: right;
-    font-family: "PressStart-Regular", "Arial" ;
-}
-
 #leftHit {
     left: 0;
 }
@@ -239,11 +314,6 @@ body {
     left: 50%;
 }
 
-#score {
-    margin-top: 10px;
-    font-size: 20px;
-    font-family: "PressStart-Regular", "Arial" ;
-}
 
 @keyframes shake {
   0%   { transform: translate(0px, 0px); }
@@ -271,11 +341,9 @@ body {
   animation: drumShake 0.3s;
 }
 
-
 @font-face {
   font-family: 'PressStart-Regular'; 
   src: url('./fonts/PressStart2P-Regular.ttf') format('truetype');
   font-style: normal;
   font-display: swap;
 }
-

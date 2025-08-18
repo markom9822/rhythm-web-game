@@ -16,16 +16,16 @@
             <h3>Made by Mark O Meara</h3>
             <p>Press the left and right arrows or A and D keys to hit the drums.</p>
             <div id="keysDisplay">
-                <img src="./images/Left_arrow_unpressed.png" height="50px" width="50px"/>
-                <img src="./images/Right_arrow_unpressed.png" height="50px" width="50px"/>
+                <img src="./images/Left_arrow_unpressed.png"/>
+                <img src="./images/Right_arrow_unpressed.png"/>
 
                 <p>Or</p>
 
-                <img src="./images/A_key_unpressed.png" height="50px" width="50px"/>
-                <img src="./images/D_key_unpressed.png" height="50px" width="50px"/>
+                <img src="./images/A_key_unpressed.png"/>
+                <img src="./images/D_key_unpressed.png"/>
             </div>
             <p>Get your timing right or you'll lose health.</p>
-            <button id="startButton">Press to Start</button>
+            <button id="startButton">PRESS TO START</button>
         </div>
     </div>
 
@@ -34,22 +34,16 @@
             <h1>Game Over</h1>
             <p>You ran out of health!</p>
             <h3 id="highscore">Highscore: </h3>
-            <button id="restartButton">Press to Restart</button>
+            <button id="restartButton">PRESS TO RESTART</button>
         </div>
     </div>
 
     <div id="gameContainer">
 
-        <div id="infoContainer">
-            <h2 id="infoText" class="info"></h2>
-        </div>
-
         <div id="laneContainer">
             <div id="leftLane" class="lane"></div>
             <div id="rightLane" class="lane"></div>
             <img id="leftHit" class="hitZone" src="./images/hit_zone.png" />
-            
-
         </div>
 
         <div id="playerContainer">
@@ -58,20 +52,22 @@
             </div>
 
             <div id="player">
-                <img id="drummer" src="./images/Japanese_drummer_idle.png" width="300" height="300" />
+                <img id="drummer" src="./images/Japanese_drummer_idle.png" />
             </div>
 
             <div id="keysContainer">
-
-                <img id="leftArrow" src="./images/Left_arrow_unpressed.png" width="80" height="80" />
-                <img id="rightArrow" src="./images/Right_arrow_unpressed.png" width="80" height="80" />
+                <img id="leftArrow" src="./images/Left_arrow_unpressed.png" />
+                <img id="rightArrow" src="./images/Right_arrow_unpressed.png" />
 
             </div>
         </div>
-
     </div>
 
-    <div id="score">Score: 0</div>
+    <div id="infoContainer">
+        <h2 id="infoText" class="info"></h2>
+        <div id="score">Score: 0</div>
+    </div>
+    
 
     <script type="module" src="game.js"></script>
 </body>
