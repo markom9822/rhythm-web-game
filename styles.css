@@ -28,9 +28,9 @@ body {
 }
 
 #startMenuPanel {
-    width: 50%;
-    height: 50%;
-    background: rgba(63, 63, 63);
+    width: 40%;
+    height: 60%;
+    background: rgb(49, 49, 49);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -55,6 +55,7 @@ body {
 #startMenuPanel p {
     font-size: 0.8rem;
     margin-bottom: 10px;
+    line-height: 16px;
     font-family: "PressStart-Regular", "Arial" ;
 }
 
@@ -75,7 +76,15 @@ body {
     background: #ff6b6b;
 }
 
-#gameOverMenu {
+#keysDisplay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 8px;
+}
+
+#gameOverMenuBackground {
     position: fixed;
     top: 0;
     left: 0;
@@ -91,19 +100,38 @@ body {
     text-align: center;
 }
 
-#gameOverMenu h1 {
+#gameOverMenuPanel {
+    width: 40%;
+    height: 60%;
+    background: rgb(49, 49, 49);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+    color: white;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 5px;
+
+}
+
+#gameOverMenuPanel h1 {
     font-size: 3rem;
     margin-bottom: 20px;
     font-family: "PressStart-Regular", "Arial" ;
 }
 
-#gameOverMenu h3 {
+#gameOverMenuPanel h3 {
     font-size: 1.3rem;
     margin-bottom: 20px;
     font-family: "PressStart-Regular", "Arial" ;
 }
 
-#gameOverMenu p {
+#gameOverMenuPanel p {
     font-size: 0.8rem;
     margin-bottom: 10px;
     font-family: "PressStart-Regular", "Arial" ;
@@ -180,18 +208,13 @@ body {
 .note {
     position: absolute;
     width: 50%;
-    height: 20px;
-    background: #ff4444;
-    border-radius: 15px;
 }
 
 .hitZone {
     position: absolute;
     bottom: 50px;
-    width: 50%;
-    height: 10px;
-    background: rgb(247, 247, 18);
-    opacity: 0.7;
+    width: 100%;
+    height: 15px;
 }
 
 .info {
@@ -215,6 +238,33 @@ body {
     font-size: 20px;
     font-family: "PressStart-Regular", "Arial" ;
 }
+
+@keyframes shake {
+  0%   { transform: translate(0px, 0px); }
+  20%  { transform: translate(-10px, 0px); }
+  40%  { transform: translate(10px, 0px); }
+  60%  { transform: translate(-10px, 0px); }
+  80%  { transform: translate(10px, 0px); }
+  100% { transform: translate(0px, 0px); }
+}
+
+.shake {
+  animation: shake 0.3s;
+}
+
+@keyframes drumShake {
+  0%   { transform: translate(0px, 0px); }
+  20%  { transform: translate(-2px, 0px); }
+  40%  { transform: translate(2px, 0px); }
+  60%  { transform: translate(-2px, 0px); }
+  80%  { transform: translate(2px, 0px); }
+  100% { transform: translate(0px, 0px); }
+}
+
+.drumShake {
+  animation: drumShake 0.3s;
+}
+
 
 @font-face {
   font-family: 'PressStart-Regular'; 

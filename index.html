@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Drum Rhythm Game</title>
+    <link rel="icon" type="image/svg+xml" href="./images/Japanese_drum.png" />
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -12,21 +13,28 @@
     <div id="startMenuBackground">
         <div id="startMenuPanel">
             <h1>Drum Game</h1>
-            <p>Press the left and right arrow keys to hit the drums.</p>
-            <div>
+            <p>Press the left and right arrows or A and D keys to hit the drums.</p>
+            <div id="keysDisplay">
                 <img src="./images/Left_arrow_unpressed.png" height="50px" width="50px"/>
                 <img src="./images/Right_arrow_unpressed.png" height="50px" width="50px"/>
+
+                <p>Or</p>
+
+                <img src="./images/A_key_unpressed.png" height="50px" width="50px"/>
+                <img src="./images/D_key_unpressed.png" height="50px" width="50px"/>
             </div>
             <p>Get your timing right or you'll lose health.</p>
             <button id="startButton">Press to Start</button>
         </div>
     </div>
 
-    <div id="gameOverMenu">
-        <h1>Game Over</h1>
-        <p>You ran out of health!</p>
-        <h3 id="highscore">Highscore: </h3>
-        <button id="restartButton">Press to Restart</button>
+    <div id="gameOverMenuBackground">
+        <div id="gameOverMenuPanel">
+            <h1>Game Over</h1>
+            <p>You ran out of health!</p>
+            <h3 id="highscore">Highscore: </h3>
+            <button id="restartButton">Press to Restart</button>
+        </div>
     </div>
 
     <div id="gameContainer">
@@ -38,8 +46,9 @@
         <div id="laneContainer">
             <div id="leftLane" class="lane"></div>
             <div id="rightLane" class="lane"></div>
-            <div id="leftHit" class="hitZone"></div>
-            <div id="rightHit" class="hitZone"></div>
+            <img id="leftHit" class="hitZone" src="./images/hit_zone.png" />
+            
+
         </div>
 
         <div id="playerContainer">

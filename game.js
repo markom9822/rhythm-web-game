@@ -1,12 +1,28 @@
-
-const gameContainer = document.getElementById('laneContainer');
+// document elements
+const laneContainer = document.getElementById('laneContainer');
+const playerContainer = document.getElementById('playerContainer');
 const scoreDisplay = document.getElementById('score');
-
 const leftArrowImage = document.getElementById("leftArrow");
 const rightArrowImage = document.getElementById("rightArrow");
 const drummerImage =  document.getElementById("drummer");
-
 const infoText = document.getElementById("infoText");
+const healthContainer = document.getElementById('healthContainer');
+healthContainer.innerHTML = ""; 
+const gameOverMenu = document.getElementById("gameOverMenuBackground");
+
+// constant variables
+const MAX_NOTE_SPAWN_DELAY = 1000;
+const MIN_NOTE_SPAWN_DELAY = 500;
+const HIT_INFO_TIMEOUT = 500;
+
+const MAX_NOTE_FALL_SPEED = 10;
+const MIN_NOTE_FALL_SPEED = 2;
+
+const MAX_HEALTH = 5;
+const HEALTH_DECREMENT = 0.5;
+const SPEED_SCORE_THRESHOLD = 10;
+const HIT_TEXT_COLOUR = "#48f542";
+const MISS_TEXT_COLOUR = "#f54542";
 
 // audio
 const drumSound = new Audio('./sounds/drum_sound_8bit.wav');
@@ -15,22 +31,20 @@ const hurtSound = new Audio('./sounds/man_hurt_8bit.wav');
 hurtSound.volume = 0.8;
 const gameOverSound = new Audio('./sounds/kabuki_yoooo_8bit.wav');
 gameOverSound.volume = 0.8;
+const bkgMusic = new Audio('./sounds/japanese_bkg_music_8bit.wav');
+bkgMusic.volume = 0.1;
+bkgMusic.loop = true;
 
-let health = 5;
-const healthContainer = document.getElementById('healthContainer');
-healthContainer.innerHTML = ""; 
-
+let health = MAX_HEALTH;
 const hitZoneY = 500 - 50; // position of hit zone from top
 let highScore = 0;
 let score = 0;
-
 let infoTimeoutId = null;
 let gameRunning = false;
 let notes = [];
 
 window.addEventListener("DOMContentLoaded", () => {
 
-    const gameOverMenu = document.getElementById("gameOverMenu");
     gameOverMenu.style.display = "none";
 
     const startMenu = document.getElementById("startMenuBackground");
@@ -45,6 +59,9 @@ window.addEventListener("DOMContentLoaded", () => {
         gameRunning = true;
         gameLoop();
         scheduleNextNote();
+
+        bkgMusic.pause()
+        bkgMusic.currentTime = 0;
     });
 
     startButton.addEventListener("click", () => {
@@ -66,10 +83,13 @@ function handleGameOver() {
 
     gameOverSound.currentTime = 0;
     gameOverSound.play();
+
+    bkgMusic.currentTime = 0;
+    bkgMusic.play();
 }
 
 function handleResetGameState() {
-    health = 5;
+    health = MAX_HEALTH;
     score = 0;
     notes.forEach(note => note.element.remove());
     notes = [];
@@ -84,13 +104,17 @@ function handleResetGameState() {
 
 function spawnNote(lane) {
 
-    const note = document.createElement('div');
-    note.classList.add('note');
-    note.style.left = lane === 'left' ? '0%' : '50%';
-    note.style.top = '-30px';
+    const noteImg = document.createElement('img');
+    noteImg.width = 90;
+    noteImg.height = 30;
+    noteImg.className = 'note';
+    noteImg.src = './images/drum_bar.png';
 
-    gameContainer.appendChild(note);
-    notes.push({ element: note, lane, y: -30 });
+    noteImg.style.left = lane === 'left' ? '0%' : '50%';
+    noteImg.style.top = '-30px';
+
+    laneContainer.appendChild(noteImg);
+    notes.push({ element: noteImg, lane, y: -30 });
 }
 
 function gameLoop() {
@@ -105,7 +129,7 @@ function gameLoop() {
 
         if (note.y > 500) {
             // missed completely
-            showInfo("MISS", "red");
+            showInfo("MISS", MISS_TEXT_COLOUR);
 
             updateScore();
             decreaseHealth();
@@ -132,17 +156,17 @@ function updateHealthVisuals() {
 
     healthContainer.innerHTML = '';
 
-    for (let i = 0; i < 5; i++)
+    for (let i = 0; i < MAX_HEALTH; i++)
     {
         const heartImg = document.createElement('img');
         heartImg.width = 50;
         heartImg.height = 50;
         heartImg.className = 'heart';
 
-        if (health - i > 0.5) {
+        if (health - i > HEALTH_DECREMENT) {
             heartImg.src = './images/Full_heart.png';
         }
-        else if (health - i == 0.5){
+        else if (health - i == HEALTH_DECREMENT){
             heartImg.src = './images/Half_heart.png';
         }
          else {
@@ -155,7 +179,7 @@ function updateHealthVisuals() {
 
 function getFallingSpeed(score) {
 
-    return Math.min(2 + Math.floor(score / 10) * 0.5, 10)
+    return Math.min(MIN_NOTE_FALL_SPEED + Math.floor(score / SPEED_SCORE_THRESHOLD) * 0.5, MAX_NOTE_FALL_SPEED)
 }
 
 function decreaseHealth() {
@@ -164,7 +188,8 @@ function decreaseHealth() {
     {
         hurtSound.currentTime = 0;
         hurtSound.play();
-        health -= 0.5;
+        health -= HEALTH_DECREMENT;
+        triggerShake(healthContainer);
     }
 }
 
@@ -190,7 +215,7 @@ function showInfo(text, colour) {
     infoTimeoutId = setTimeout(() => {
         infoText.textContent = "";
         infoTimeoutId = null;
-    }, 500)
+    }, HIT_INFO_TIMEOUT)
 }
 
 function hit(lane) {
@@ -205,16 +230,16 @@ function hit(lane) {
 
             let diff = Math.abs((note.y + 15) - hitZoneY);
 
-            if (diff < 20) {
+            if (diff < 30) {
 
                 // good hit
                 score++;
-                showInfo("HIT", "green");
+                showInfo("HIT", HIT_TEXT_COLOUR);
             
             } else {
 
                 // missed hit
-                showInfo("MISS", "red");
+                showInfo("MISS", MISS_TEXT_COLOUR);
                 decreaseHealth();
                 updateHealthVisuals();
             }
@@ -227,7 +252,7 @@ function hit(lane) {
     }
 
     // No note in lane to hit
-    showInfo("MISS", "red");
+    showInfo("MISS", MISS_TEXT_COLOUR);
     decreaseHealth();
     updateHealthVisuals();
     updateScore();
@@ -236,6 +261,8 @@ function hit(lane) {
 document.addEventListener('keydown', (e) => {
 
     if(!gameRunning) return;
+
+    triggerDrumShake(drummerImage);
 
     if (e.code === 'ArrowLeft')
     {
@@ -252,6 +279,22 @@ document.addEventListener('keydown', (e) => {
         drumSound.currentTime = 0;
         drumSound.play();
     }
+
+    if (e.code === 'KeyA')
+    {
+        leftArrowImage.src = "./images/A_key_pressed.png";
+        drummerImage.src = "./images/Japanese_drummer_left_hit.png";
+        drumSound.currentTime = 0;
+        drumSound.play();
+    } 
+
+    if (e.code === 'KeyD')
+    {
+        rightArrowImage.src = "./images/D_key_pressed.png";
+        drummerImage.src = "./images/Japanese_drummer_right_hit.png";
+        drumSound.currentTime = 0;
+        drumSound.play();
+    }
 });
 
 document.addEventListener('keydown', (e) => {
@@ -260,12 +303,12 @@ document.addEventListener('keydown', (e) => {
 
     if(!e.repeat)
     {
-        if (e.code === 'ArrowLeft')
+        if (e.code === 'ArrowLeft' || e.code === 'KeyA')
         {
             hit('left');
         } 
     
-        if (e.code === 'ArrowRight')
+        if (e.code === 'ArrowRight' || e.code === 'KeyD')
         {
             hit('right');
         }
@@ -288,11 +331,22 @@ document.addEventListener('keyup', (e) => {
         drummerImage.src = "./images/Japanese_drummer_idle.png";
     }
 
+    if (e.code === 'KeyA')
+    {
+        leftArrowImage.src = "./images/A_key_unpressed.png"; 
+        drummerImage.src = "./images/Japanese_drummer_idle.png";
+    } 
+
+    if (e.code === 'KeyD')
+    {
+        rightArrowImage.src = "./images/D_key_unpressed.png";
+        drummerImage.src = "./images/Japanese_drummer_idle.png";
+    }
 });
 
 function getSpawnInterval(score) {
 
-    return Math.max(1000 - Math.floor(score * 10 ) * 0.5, 500)
+    return Math.max(MAX_NOTE_SPAWN_DELAY - Math.floor(score * SPEED_SCORE_THRESHOLD ) * 0.5, MIN_NOTE_SPAWN_DELAY)
 }
 
 function scheduleNextNote() {
@@ -305,8 +359,20 @@ function scheduleNextNote() {
     setTimeout(scheduleNextNote, getSpawnInterval(score));
 }
 
+function triggerShake(container) {
+    container.classList.add('shake');
+    setTimeout(() => {
+        container.classList.remove('shake');
+    }, 200)
+}
+
+function triggerDrumShake(container) {
+    container.classList.add('drumShake');
+    setTimeout(() => {
+        container.classList.remove('drumShake');
+    }, 200)
+}
+
 scheduleNextNote();
-
 updateHealthVisuals();
-
 gameLoop();
