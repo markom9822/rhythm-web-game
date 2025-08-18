@@ -12,7 +12,7 @@ const gameOverMenu = document.getElementById("gameOverMenuBackground");
 
 // constant variables
 const MAX_NOTE_SPAWN_DELAY = 1000;
-const MIN_NOTE_SPAWN_DELAY = 500;
+const MIN_NOTE_SPAWN_DELAY = 400;
 const HIT_INFO_TIMEOUT = 500;
 
 const MAX_NOTE_FALL_SPEED = 10;
@@ -355,7 +355,6 @@ function scheduleNextNote() {
     const lane = Math.random() < 0.5 ? 'left' : 'right';
     spawnNote(lane);
 
-    // Dynamically re-evaluate spawn interval
     setTimeout(scheduleNextNote, getSpawnInterval(score));
 }
 
