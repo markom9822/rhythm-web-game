@@ -265,6 +265,7 @@ body {
     height: 100%;
     width: 30%;
     text-align: center;
+    font-size: clamp(10px, 3vw, 32px);
     font-family: "PressStart-Regular", "Arial" ;
 }
 
@@ -274,7 +275,7 @@ body {
     justify-content: center;
     height: 100%;
     width: 70%;
-    font-size: 20px;
+    font-size: clamp(10px, 3vw, 32px);
     font-family: "PressStart-Regular", "Arial" ;
 }
 

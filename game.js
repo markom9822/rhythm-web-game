@@ -350,10 +350,10 @@ function getSpawnInterval(score) {
 function scheduleNextNote() {
     if(!gameRunning) return;
 
-    //const lane = Math.random() < 0.5 ? 'left' : 'right';
-    //spawnNote(lane);
+    const lane = Math.random() < 0.5 ? 'left' : 'right';
+    spawnNote(lane);
 
-    //setTimeout(scheduleNextNote, getSpawnInterval(score));
+    setTimeout(scheduleNextNote, getSpawnInterval(score));
 }
 
 function triggerShake(container) {
