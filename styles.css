@@ -11,7 +11,7 @@ body {
     flex-direction: column;
 }
 
-#startMenu {
+#startMenuBackground {
     position: fixed;
     top: 0;
     left: 0;
@@ -22,18 +22,37 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    z-index: 9999;
+    z-index: 9000;
     color: white;
     text-align: center;
 }
 
-#startMenu h1 {
+#startMenuPanel {
+    width: 50%;
+    height: 50%;
+    background: rgba(63, 63, 63);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+    color: white;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 5px;
+
+}
+
+#startMenuPanel h1 {
     font-size: 3rem;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     font-family: "PressStart-Regular", "Arial" ;
 }
 
-#startMenu p {
+#startMenuPanel p {
     font-size: 0.8rem;
     margin-bottom: 10px;
     font-family: "PressStart-Regular", "Arial" ;

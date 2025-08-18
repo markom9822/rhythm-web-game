@@ -11,13 +11,10 @@ const infoText = document.getElementById("infoText");
 // audio
 const drumSound = new Audio('./sounds/drum_sound_8bit.wav');
 drumSound.volume = 0.6;
-
 const hurtSound = new Audio('./sounds/man_hurt_8bit.wav');
 hurtSound.volume = 0.8;
-
 const gameOverSound = new Audio('./sounds/kabuki_yoooo_8bit.wav');
 gameOverSound.volume = 0.8;
-
 
 let health = 5;
 const healthContainer = document.getElementById('healthContainer');
@@ -36,7 +33,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const gameOverMenu = document.getElementById("gameOverMenu");
     gameOverMenu.style.display = "none";
 
-    const startMenu = document.getElementById("startMenu");
+    const startMenu = document.getElementById("startMenuBackground");
     const startButton = document.getElementById("startButton");
 
     const restartButton = document.getElementById("restartButton");
@@ -58,7 +55,6 @@ window.addEventListener("DOMContentLoaded", () => {
         scheduleNextNote();
     });
 });
-
 
 function handleGameOver() {
 
@@ -213,14 +209,12 @@ function hit(lane) {
 
                 // good hit
                 score++;
-
                 showInfo("HIT", "green");
             
             } else {
 
                 // missed hit
                 showInfo("MISS", "red");
-
                 decreaseHealth();
                 updateHealthVisuals();
             }
@@ -234,10 +228,8 @@ function hit(lane) {
 
     // No note in lane to hit
     showInfo("MISS", "red");
-
     decreaseHealth();
     updateHealthVisuals();
-
     updateScore();
 }
 
