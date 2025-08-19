@@ -1,7 +1,6 @@
 # Drum Rhythm Web Game
 
-
-<img width="800" height="476" alt="image" src="https://github.com/user-attachments/assets/65e4a3a6-e000-4901-9a18-ddaa3f6f0d95" />
+<img width="1221" height="576" alt="image" src="https://github.com/user-attachments/assets/2a34f264-ce6c-457b-9247-69a2d6e57649" />
 
 ---
 
