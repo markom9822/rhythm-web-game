@@ -14,6 +14,8 @@ const gameOverMenu = document.getElementById("gameOverMenuBackground");
 const MAX_NOTE_SPAWN_DELAY = 1000;
 const MIN_NOTE_SPAWN_DELAY = 400;
 const HIT_INFO_TIMEOUT = 500;
+const NOTE_SPAWN_MULTIPLIER = 0.75;
+const NOTE_FALLING_MULTIPLIER = 0.5;
 
 const MAX_NOTE_FALL_SPEED = 10;
 const MIN_NOTE_FALL_SPEED = 2;
@@ -177,7 +179,7 @@ function updateHealthVisuals() {
 
 function getFallingSpeed(score) {
 
-    return Math.min(MIN_NOTE_FALL_SPEED + Math.floor(score / SPEED_SCORE_THRESHOLD) * 0.5, MAX_NOTE_FALL_SPEED)
+    return Math.min(MIN_NOTE_FALL_SPEED + Math.floor(score / SPEED_SCORE_THRESHOLD) * NOTE_FALLING_MULTIPLIER, MAX_NOTE_FALL_SPEED)
 }
 
 function decreaseHealth() {
@@ -339,7 +341,7 @@ document.addEventListener('keyup', (e) => {
 
 function getSpawnInterval(score) {
 
-    return Math.max(MAX_NOTE_SPAWN_DELAY - Math.floor(score * SPEED_SCORE_THRESHOLD ) * 0.5, MIN_NOTE_SPAWN_DELAY)
+    return Math.max(MAX_NOTE_SPAWN_DELAY - Math.floor(score * SPEED_SCORE_THRESHOLD ) * NOTE_SPAWN_MULTIPLIER, MIN_NOTE_SPAWN_DELAY)
 }
 
 function scheduleNextNote() {
