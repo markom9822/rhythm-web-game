@@ -198,19 +198,23 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    z-index: 10;
 }
 
 #player {
   display: flex;
   justify-content: center; 
-  align-items: center;
+  align-items: end;
   gap: 10px;
-  width: 100%;  
+  width: 100%; 
+  z-index: 10; 
+  height: 70%;
+  margin-bottom: 30px;
 }
 
 #player img {
   flex: 1 1 auto;  
-  max-width: 300px;
+  max-width: 280px;
   height: auto; 
   width: 20%;
 }
@@ -221,7 +225,8 @@ body {
   align-items: center;
   gap: 10px;
   width: 60%;  
-  margin-top: 10px;
+  z-index: 10;
+  height: 20%;
 }
 
 #keysContainer img {
@@ -235,9 +240,10 @@ body {
   display: flex;
   justify-content: center; 
   align-items: center;
-  gap: 10px;
+  gap: 1px;
   width: 70%;  
-  margin-bottom: 20px;
+  z-index: 10;
+  height: 10%;
 }
 
 #healthContainer img {
@@ -267,6 +273,29 @@ body {
     text-align: center;
     font-size: clamp(10px, 3vw, 32px);
     font-family: "PressStart-Regular", "Arial" ;
+}
+
+#backgroundContainer {
+  position: absolute;
+  width: 100%; height: 100%;
+  left: 0; top: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow:visible;
+  filter: brightness(80%);
+}
+
+#stageBackground {
+  position: absolute;
+  width: 100%; height: 80%;
+  left: 0; top: 0;
+  object-fit: cover;
+}
+
+#stageBackgroundBottom {
+  position: absolute;
+  width: 100%; height: 20%;
+  left: 0; bottom: 0;
 }
 
 #score {
